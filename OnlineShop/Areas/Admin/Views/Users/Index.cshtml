@@ -1,0 +1,56 @@
+﻿@model IEnumerable<OnlineShop.Models.User>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "User";
+}
+
+<div class="grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            @*<h4 class="card-title"></h4>*@
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Phone Number
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.OnePageOfProducts)
+                    {
+                        <tr>
+                            <td>
+                                @item.User_name
+                            </td>
+                            <td>
+                                @item.User_email
+                            </td>
+                            <td>
+                                @item.User_address
+                            </td>
+                            <td>
+                                @item.User_phone_number
+                            </td>
+
+                            @*@Html.ActionLink("Edit", "Edit", new { id = item.Product_id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Product_id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Product_id })*@
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page, cateID = ViewBag.SelectedCat }))
+        </div>
+    </div>
+</div>

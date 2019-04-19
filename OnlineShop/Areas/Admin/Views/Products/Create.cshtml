@@ -1,0 +1,183 @@
+﻿@model OnlineShop.Models.Product
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    @using (Html.BeginForm("CreateProduct", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Add Product</h4>
+                    <form class="form-sample">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Brand</label>
+                                    <div class="col-sm-9">
+                                        @Html.DropDownList("Brand_id", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Brand_id, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Category</label>
+                                    <div class="col-sm-9">
+                                        @Html.DropDownList("Cate_id", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Cate_id, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Name</label>
+                                    <div class="col-sm-9">
+                                        @Html.EditorFor(model => model.Product_name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Product_name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Price</label>
+                                    <div class="col-sm-9">
+                                        <button type="button" class="btn btn-inverse-success btn-icon">
+                                            <i class="mdi mdi-cash-usd" style="font-size:27px"></i>
+                                        </button>
+                                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" , @style = "width:85%; display:inline" } })
+                                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Quantity</label>
+                                    <div class="col-sm-9">
+                                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="padding-right:10px">Date created</label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.Date_created, new { @class = "form-control", @Value = @DateTime.Now.ToShortDateString() })
+                                        @Html.ValidationMessageFor(model => model.Date_created, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" style="padding-right:10px">Product Code</label>
+                                    <div class="col-sm-9">
+                                        @Html.EditorFor(model => model.Product_code, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Product_code, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="card-description">
+                            Optional
+                        </p>
+                        <div class="form-group">
+                            <label for="exampleTextarea1">Detail</label>
+                            @Html.TextAreaFor(model => model.Detail, new { @class = "form-control", @rows = "4" })
+                            @*<textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>*@
+                        </div>
+
+                        <div class="form-group">
+                            <label>File upload</label>
+                            <input type="file" name="img[]" class="file-upload-default">
+                            <div class="input-group col-xs-12">
+                                @*<input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                                    <span class="input-group-append">
+                                        <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
+                                    </span>*@
+                                <input class="file-upload-info" type="file" name="file" id="ImageUpload" />
+                                <img id="imgpreview" src="#" />
+                            </div>
+                        </div>
+                        @*<button type="submit" class="btn btn-gradient-primary mr-2">Submit</button>*@
+                        <input type="submit" value="Create" class="btn btn-gradient-primary mr-2" />
+                    </form>
+                </div>
+            </div>
+        </div>
+        @*<div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>*@
+    }
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["error"]
+        </div>
+    }
+
+    @if (TempData["error1"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["error1"]
+        </div>
+    }
+
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script>
+
+        $(function () {
+
+            /*
+            * Preview selected image
+            */
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $("img#imgpreview")
+                            .attr("src", e.target.result)
+                            .width(200)
+                            .height(200);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#ImageUpload").change(function () {
+                readURL(this);
+            });
+
+            //////////////////////////////////////////////////////////////
+
+        });
+
+    </script>
+</body>
+</html>

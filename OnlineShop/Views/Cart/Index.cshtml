@@ -1,0 +1,97 @@
+﻿@using OnlineShop.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var session = (OnlineShop.Models.Login.UserSession)Session[OnlineShop.Models.UserLogin.Sessioncont.USER_SESSION];
+}
+
+<div class="container inner">
+    <div class="table-responsive table-cart">
+        @if (session == null)
+        {
+            <p>You have to login.</p>
+        }
+        else
+        {
+            <h1>Cart of @session.name </h1>
+            if ((List<Item>)Session["cart"] == null)
+            {
+                <p>No product in cart</p>
+                <a href="/Home/Index"></a>
+            }
+            else
+            {
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+
+                            <th>Option</th>
+
+                            <th>Name</th>
+                            <th>Photo</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Item item in (List<Item>)Session["cart"])
+                        {
+                            <tr>
+                                <td><a href="@Url.Action("Remove", "Cart", new { id = item.Product.Product_id })">Remove</a></td>
+
+                                <td>@item.Product.Product_name</td>
+                                <td><img src="/Images/Uploads/Products/@item.Product.Product_id/@item.Product.Image" width="60" /> </td>
+                                <td>@item.Product.Price USD</td>
+                                <td>@item.Quantity</td>
+                                <td>@(item.Product.Price * item.Quantity)</td>
+                            </tr>
+                        }
+                        <tr>
+                            <td align="right" colspan="5">Sum :  </td>
+                            <td>
+                                @{
+                                    List<Item> cart = (List<Item>)Session["cart"];
+                                    var total = cart.Sum(item => item.Product.Price * item.Quantity);
+                                }
+                                @total USD
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="6"><a href="@Url.Action("Index", "Home")">Continue Shopping</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong class="color-dark">Payment</strong></td>
+                            <td align="left" colspan="6">
+                                <select name="payment" id="payment" onchange="return abc();" required>
+                                    <option value="">Select payment</option>
+                                    <option value="VPP">VPP</option>
+                                    <option value="Credit Cards">Credit cards</option>
+                                    <option value="Cheuque">Cheuque</option>
+                                    <option value="DD">DD</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="7">
+                                <a href="">CheckOut</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <script>
+                    function abc() {
+                        var a = document.getElementById("payment").value;
+                        document.getElementsByClassName("wrapper light-wrapper")[0].getElementsByTagName("a")[2].href = "/Cart/Checkout?userid=@session.id&total=@total&payment=" + a;
+                    }
+                </script>
+            }
+        }
+    </div>
+</div>
+
+<!-- /.container -->

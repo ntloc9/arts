@@ -1,0 +1,65 @@
+﻿@model OnlineShop.Models.Order
+
+@{
+    ViewBag.Title = "Details";
+
+    var session = (OnlineShop.Areas.Extension.AccountLoginSession)Session[OnlineShop.Areas.Admin.Extension.SessionCont.SessionEmployee];
+}
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Order Detail</h4>
+            <p class="card-description"></p>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Order ID:</label>
+                    <label class="col-sm-6 col-form-label"> @Model.Order_id</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">User Name:</label>
+                    <label class="col-sm-6 col-form-label"> @Model.User.User_name</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">User Address:</label>
+                    <label class="col-sm-6 col-form-label"> @Model.User.User_address</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">User Phone Number:</label>
+                    <label class="col-sm-6 col-form-label"> @Model.User.User_phone_number</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Total:</label>
+                    <label class="col-sm-6 col-form-label"> @Model.Total</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Payment Method:</label>
+                    <label class="col-sm-6 col-form-label"> @Model.Payment_method</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Order Date:</label>
+                    <label class="col-sm-6 col-form-label"> @Model.Order_date.ToShortDateString()</label>
+                </div>
+            </div>
+            <p>
+                @if (Model.Order_status.Equals("Processing"))
+                {
+                    <a class="btn btn-gradient-success btn-sm" href="/employee/orders/AcceptShipOrder?orderid=@Model.Order_id&empid=@session.AccountID">Take</a>
+                }
+                @*<a class="btn btn-gradient-info btn-sm" href="/Employee/Orders/Details/@item.Order_id">Detail</a>*@
+
+            </p>
+        </div>
+    </div>
+</div>

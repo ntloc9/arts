@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="text" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="style/images/favicon.png">
+    <title>|arts|shop</title>
+    <link rel="stylesheet" type="text/css" href="~/Assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Assets/css/plugins.css">
+    <link rel="stylesheet" type="text/css" href="~/Assets/revolution/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="~/Assets/revolution/css/layers.css">
+    <link rel="stylesheet" type="text/css" href="~/Assets/revolution/css/navigation.css">
+    <link rel="stylesheet" type="text/css" href="~/Assets/type/icons.css">
+    <link rel="stylesheet" type="text/css" href="~/Assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/Assets/css/color/blue.css">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    @{
+        var session = (OnlineShop.Models.Login.UserSession)Session[OnlineShop.Models.UserLogin.Sessioncont.USER_SESSION];
+    }
+
+    <div class="content-wrapper">
+        <nav class="navbar transparent">
+            <div class="container">
+                <div class="flex-it">
+                    <div class="navbar-header">
+                        <div class="navbar-brand"><a href="/"><img src="#" srcset="~/Image/logo.svg 1x, ~/Image/logo.svg 2x" alt="" /></a></div>
+                        <div class="nav-bars-wrapper">
+                            <div class="nav-bars-inner">
+                                <div class="nav-bars" data-toggle="collapse" data-target=".navbar-collapse"><span></span></div>
+                            </div>
+                            <!-- /.nav-bars-inner -->
+                        </div>
+                        <!-- /.nav-bars-wrapper -->
+                    </div>
+                    <!-- /.nav-header -->
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="mega-menu">
+                                <a href="/">Home</a>
+                                <!--/.dropdown-menu -->
+                            </li>
+                            <li class="mega-menu">
+                                <a href="/shop/cate">Category</a>
+                                <!--/.dropdown-menu -->
+                            </li>
+                            <li class="mega-menu">
+                                <a href="/shop/products">Product</a>
+                                <!--/.dropdown-menu -->
+                            </li>
+                            @if (session == null)
+                            {
+                                <li><a href="/Registry/Login">Login</a></li>
+                                <li><a href="/Registry/Register">Register</a></li>
+                                <li>
+                                    <a href="/Cart/Index">Cart(0)</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li><a href="~/UsersDetails/Details/@session.id">Hello @session.name!</a></li>
+                                <li><a href="/Registry/Logout">Logout</a></li>
+                                <li>
+                                    <a href="/Wishlists/Index?user_id=@session.id">WishList</a>
+                                </li>
+                                <li>
+                                    <a href="/Cart/Index?user_id=@session.id">Cart(0)</a>
+                                </li>
+                            }
+
+
+                        </ul>
+                        <!--/.navbar-nav -->
+                    </div>
+                    <!--/.nav-collapse -->
+                </div>
+                <!--/.flex-it -->
+            </div>
+            <!--/.container -->
+        </nav>
+        <!--/.navbar -->
+        <!-- .content-wrapper -->
+        <div class="wrapper light-wrapper">
+            @RenderBody()
+        </div>
+    </div>
+    <!-- /.light-wrapper -->
+    <!-- /.content-wrapper -->
+    <footer class="dark-wrapper inverse-text">
+        <div class="container inner pt-60 pb-60">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="widget">
+                        <img src="#" srcset="~/Assets/images/logo-light.png 1x, style/images/logo-light@2x.png 2x" alt="" />
+                        <div class="space20"></div>
+                        <p>is a responsive site template with a clean and professional design. A great solution for your business, portfolio, blog or any other purpose website.</p>
+                        <div class="space20"></div>
+                        <p>© 2017 crea;tink. All rights reserved. Theme by elemis.</p>
+                    </div>
+                    <!-- /.widget -->
+                </div>
+                <!-- /column -->
+
+                <div class="col-sm-4">
+                    <div class="widget">
+                        <h5 class="widget-title">About Us</h5>
+                        <p>
+                            Arts Online Shop is a stationary shop that sells arts, gift articles, greeting cards, dolls, files, hand bags,
+                            wallets, and as well some of the beauty products.
+
+                        </p>
+                        <div class="space20"></div>
+                        <ul class="social social-bg social-s">
+                            <li><a href="#"><i class="et-twitter"></i></a></li>
+                            <li><a href="#"><i class="et-facebook"></i></a></li>
+                            <li><a href="#"><i class="et-pinterest"></i></a></li>
+                            <li><a href="#"><i class="et-vimeo"></i></a></li>
+                            <li><a href="#"><i class="et-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- /.widget -->
+
+                </div>
+                <!-- /column -->
+
+                <div class="col-sm-4">
+                    <div class="widget">
+                        <h5 class="widget-title">Get in Touch</h5>
+                        <p>
+                            CONTACT US:
+                            Mon - Sun: 9am - 6pm
+                        </p>
+                        <div class="space15"></div>
+                        <ul class="icon-list">
+                            <li><i class="et-mail"></i> <a href="mailto: artsonlineshop@email.com" class="nocolor">artsonlineshop@email.com</a> </li>
+                            <li><i class="et-old-phone"></i> +00 (123) 456 78 90 </li>
+                            <li><i class="et-mobile"></i> +80 (547) 455 47 54 </li>
+                        </ul>
+                    </div>
+                    <!-- /.widget -->
+                </div>
+                <!-- /column -->
+
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container -->
+
+    </footer>
+    <script src="~/Assets/js/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Assets/revolution/js/jquery.themepunch.tools.min.js"></script>
+    <script type="text/javascript" src="~/Assets/revolution/js/jquery.themepunch.revolution.min.js"></script>
+    <script type="text/javascript" src="~/Assets/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script type="text/javascript" src="~/Assets/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script type="text/javascript" src="~/Assets/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script type="text/javascript" src="~/Assets/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+    <script type="text/javascript" src="~/Assets/revolution/js/extensions/revolution.extension.video.min.js"></script>
+    <script type="text/javascript" src="~/Assets/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+    <script type="text/javascript" src="~/Assets/js/plugins.js"></script>
+    <script type="text/javascript" src="~/Assets/js/scripts.js"></script>
+</body>
+</html>

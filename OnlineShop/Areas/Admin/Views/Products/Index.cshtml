@@ -1,0 +1,135 @@
+﻿@model IEnumerable<OnlineShop.Models.Product>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+}
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <a href="/Admin/Products/Create" class="btn btn-success btn-fw">Add new product</a>
+</p>
+@using (Html.BeginForm("SearchProduct", "Dash", FormMethod.Get))
+{
+    <div class="input-group" style="margin-bottom:10px">
+        <input id="searchStr" name="searchStr" type="text" class="form-control" style="width:auto; flex:none;" placeholder="Search product" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <select id="mode" name="mode" class="form-control" style="width:13%; flex:none;  height:45px; border: 1px solid #ebedf2">
+            <option value="1">by Product Code</option>
+            <option value="2">by Name</option>
+        </select>
+        <div class="input-group-append">
+            <input type="submit" value="Search" class="btn btn-dark btn-sm" />
+        </div>
+    </div>
+}
+@*<select id="SelectCategory" name="SelectCategory">
+        <option value="0">All</option>
+        @foreach (var item in ViewBag.Categories)
+        {
+            if (ViewBag.SelectedCat == item.Cate_id)
+            {
+                <option selected="selected" value="@item.Value">@item.Text</option>
+            }
+            else
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        }
+    </select>*@
+
+
+<div class="grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            @*<h4 class="card-title"></h4>*@
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            Product code
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Brand
+                        </th>
+                        <th>
+                            Category
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Date created
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.OnePageOfProducts)
+                    {
+                        <tr id="row_@item.Product_id">
+                            <td>
+                                @item.Product_code
+                            </td>
+                            <td>
+                                @item.Product_name
+                            </td>
+                            <td>
+                                @item.Brand.Brand_name
+                            </td>
+                            <td>
+                                @item.Category.Cate_name
+                            </td>
+                            <td>
+                                @item.Price
+                            </td>
+                            <td>
+                                @item.Date_created.ToShortDateString()
+                            </td>
+                            <td>
+                                @item.Quantity
+                            </td>
+                            <td class="text-danger table-text-right">
+                                <a href="/Admin/Products/Edit/@item.Product_id" class="btn btn-inverse-info btn-sm">Edit</a>
+                                @*<a href="/Admin/Products/Delete/@item.Product_id" class="btn btn-inverse-danger btn-sm">Delete</a>*@
+                                @Ajax.ActionLink("Delete", "Delete", new { @id = item.Product_id}, new AjaxOptions
+                           {
+                               Confirm ="Are you sure to delete this brand?",
+                               OnSuccess= "$('#row_" + item.Product_id + "').remove()",
+                               HttpMethod="get"
+                           }, new { @class = "btn btn-inverse-danger btn-sm" })
+                            </td>
+                            @*@Html.ActionLink("Edit", "Edit", new { id = item.Product_id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Product_id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Product_id })*@
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page, cateID = ViewBag.SelectedCat }))
+
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="/scripts/jquery.validate.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="/scripts/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+
+<script>
+    $(function () {
+        $("#SelectCategory").on("change", function () {
+            var url = $(this).val();
+
+            if (url) {
+                window.location = "/admin/shop/Products?catId=" + url;
+            }
+
+            return false;
+        });
+    });
+</script>

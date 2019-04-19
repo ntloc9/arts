@@ -1,0 +1,59 @@
+﻿@model IEnumerable<OnlineShop.Models.OrderProduct>
+
+@{
+    ViewBag.Title = "OrderDetail";
+}
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h2 class="section-title mb-40 text-center">Order Detail</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order Status:</th>
+                    <th>Product Name: </th>
+                    <th>Product Number:</th>
+                    <th>Delivery Number:</th>
+                    <th>Quantity:</th>
+                    <th>Price:</th>
+                    <th>Subtotal:</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">1</th>
+                        <td> @item.Order.Order_status</td>
+                        <td>@item.Product.Product_name</td>
+                        <td>@item.DeliOrderProduct_number</td>
+                        <td> @item.Quantity</td>
+                        <td>@item.Price</td>
+                        <td>@item.Subtotal</td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.OrderProduct_id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.OrderProduct_id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.OrderProduct_id })
+                        </td>
+                    </tr>
+                }
+                </tbody>
+
+        </table>
+        <hr />
+        
+
+
+    </div>
+    <!-- /column -->
+</div>

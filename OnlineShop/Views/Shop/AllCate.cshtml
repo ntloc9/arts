@@ -1,0 +1,73 @@
+﻿@model IEnumerable<OnlineShop.Models.Category>
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+<div class="container inner">
+    <div class="row flex-middle mb-30">
+        <div class="col-sm-6 col-md-3">
+            <p class="mb-0">Showing 1–16 of 25 results</p>
+        </div>
+        <!--/column -->
+        <div class="space10 visible-xs"></div>
+        <div class="col-sm-6 col-md-3 col-md-offset-6 text-right">
+            <label class="custom-select">
+                <select class="mb-0">
+                    <option value="menu_order" selected="selected">Default sorting</option>
+                    <option value="popularity">Sort by popularity</option>
+                    <option value="rating">Sort by average rating</option>
+                    <option value="date">Sort by date</option>
+                    <option value="price">Sort by price: low to high</option>
+                    <option value="price-desc">Sort by price: high to low</option>
+                </select>
+                <span><!-- fake select handler --></span>
+            </label>
+        </div>
+        <!--/column -->
+    </div>
+    <!--/.row -->
+
+    <div class="blog shop grid-view text-center">
+        <div class="tiles tiles-m">
+            <div class="isotope row">
+                @foreach (var item in Model)
+                {
+                    <!-- column -->
+                    <div class="item grid-sizer col-sm-6 col-md-3">
+                        <figure class="overlay overlay8">
+                            <a href="/shop/cate/@item.Cate_id"></a><img class="primary" src="/Images/Uploads/Categories/@item.Cate_id/@item.Cate_image" alt="" /><img class="secondary" src="/Images/Uploads/Categories/@item.Cate_id/@item.Cate_image" alt="" />
+                            <figcaption>
+                                <h5 class="mb-0">View Details</h5>
+                            </figcaption>
+                        </figure>
+                        <div class="post-content text-center">
+                            <h3 class="post-title"><a href="/shop/cate/@item.Cate_id">@item.Cate_name</a></h3>
+                            <!-- /.meta -->
+                        </div>
+                        <!-- /.post-content -->
+                    </div>
+                    <!-- /column -->
+                }
+            </div>
+            <!--/.row -->
+
+        </div>
+        <!--/.tiles -->
+    </div>
+    <!--/.portfolio -->
+
+    <div class="space40"></div>
+    <div class="pagination border text-center">
+        <ul>
+            <li><a href="#"><i class="et-chevron-small-left"></i></a></li>
+            <li class="active"><a href="#"><span>1</span></a></li>
+            <li><a href="#"><span>2</span></a></li>
+            <li><a href="#"><span>3</span></a></li>
+            <li><a href="#"><i class="et-chevron-small-right"></i></a></li>
+        </ul>
+    </div>
+    <!-- /.pagination -->
+
+</div>
+

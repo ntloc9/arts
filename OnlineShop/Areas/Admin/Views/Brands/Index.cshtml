@@ -1,0 +1,89 @@
+﻿@model IEnumerable<OnlineShop.Models.Brand>
+@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    ViewBag.Title = "Brand";
+}
+
+<div class="input-group" style="margin-bottom:10px">
+    <input id="searchStr" name="searchStr" type="text" class="form-control" style="width:auto; flex:none;" placeholder="Enter brand" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+        <input type="submit" value="Search" class="btn btn-dark btn-sm" id="searchBtn" />
+    </div>
+</div>
+<p>
+    @*@Html.ActionLink("Create New Categort", "Create")*@
+    <a href="/Admin/Brands/Create" class="btn btn-success btn-fw">Create New Brand</a>
+
+</p>
+
+<p class="text-danger">@TempData["delete"]</p>
+<div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            @*<p class="card-description">
+            <h5>Show all bran</h5>Add class
+        </p>*@
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Brands Name</th>
+                    </tr>
+                </thead>
+                <tbody id="brandSearching">
+                    @foreach (var item in ViewBag.OnePageOfProducts)
+                    {
+                        <tr id="row_@item.Brand_id">
+                            <td>@item.Brand_name</td>
+                            <td class="table-text-right">
+                                <a href="/Admin/Brands/Edit/@item.Brand_id" class="btn btn-inverse-info btn-sm">Edit</a>
+                                @*<a href="/Admin/Brands/Delete/@item.Brand_id" class="btn btn-gradient-danger btn-sm">Delete</a>*@
+                                @Ajax.ActionLink("Delete", "Delete", new { @id = item.Brand_id}, new AjaxOptions
+                           {
+                               Confirm ="Are you sure to delete this brand?",
+                               OnSuccess= "$('#row_" + item.Brand_id+"').remove()",
+                               HttpMethod="post"
+                           }, new { @class = "btn btn-inverse-danger btn-sm" })
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page, cateID = ViewBag.SelectedCat }))
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="/scripts/jquery.validate.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="/scripts/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+<script>
+    //$("#nuclear").click(function () {
+    //    confirm("This function will clear all the products go with this brand, are you sure?")
+    //})
+
+    $(document).ready(function () {
+        $("#searchBtn").click(function () {
+            var searchStr = $("#searchStr").val();
+            var setData = $("#brandSearching");
+            setData.html("");
+            $.ajax({
+                type: "post",
+                url: "/Admin/Brands/GetBrandSeachData?searchStr=" + searchStr,
+                contentType: "html",
+                success: function (result) {
+                    if (result.length == null) {
+                        setData.append("<tr><td></td></tr>")
+                    } else {
+                        $.each(result, function (index, value) {
+                            var Data = "<tr>" + "<td>" + value.brand_name + "</td><td class='table-text-right'><a href='/Admin/Brands/Edit/" + value.brand_id + "' class='btn btn-inverse-info btn-sm'>Edit</a>  <a href='/Admin/Brands/Delete/" + value.brand_id + "' class='btn btn-inverse-danger btn-sm'>Delete</a></td></tr>";
+                            setData.append(Data);
+                        })
+                    }
+                }
+            })
+        })
+    })
+</script>

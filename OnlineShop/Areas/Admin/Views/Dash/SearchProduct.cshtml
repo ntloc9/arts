@@ -1,0 +1,109 @@
+﻿@model IEnumerable<OnlineShop.Models.Product>
+@{
+    ViewBag.Title = "SearchProduct";
+}
+
+<h2>Search Result</h2>
+
+@using (Html.BeginForm("SearchProduct", "Dash", FormMethod.Get))
+{
+    <div class="input-group" style="margin-bottom:10px">
+        <input id="searchStr" name="searchStr" type="text" class="form-control" style="width:auto; flex:none;" placeholder="Search product" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <select id="mode" name="mode" class="form-control" style="width:13%; flex:none;  height:45px; border: 1px solid #ebedf2">
+            <option value="1">by Product Code</option>
+            <option value="2">by Name</option>
+        </select>
+        <div class="input-group-append">
+            <input type="submit" value="Search" class="btn btn-dark btn-sm" />
+        </div>
+    </div>
+}
+
+<div class="grid-margin stretch-card">
+    <div class="card">
+        <a href="/Admin/Products" class="btn btn-inverse-success btn-sm" style="width: max-content; margin-top: 20px; margin-left: 50px;">back to product list</a>
+        <div class="card-body" style="padding-top: 10px">
+            @*<h4 class="card-title"></h4>*@
+            @if (Model.Any())
+            {
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                Product code
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Brand
+                            </th>
+                            <th>
+                                Category
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Date created
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*@if (!Model.Any())
+                            {
+                                <tr>
+                                There are no orders.
+                                </tr>
+                            }
+                            else
+                            {*@
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Product_code
+                                </td>
+                                <td>
+                                    @item.Product_name
+                                </td>
+                                <td>
+                                    @item.Brand.Brand_name
+                                </td>
+                                <td>
+                                    @item.Category.Cate_name
+                                </td>
+                                <td>
+                                    @item.Price
+                                </td>
+                                <td >
+                                    @item.Date_created.ToShortDateString()
+                                </td>
+                                <td>
+                                    @item.Quantity
+
+                                </td>
+                                <td class="text-danger" style="text-align:center; padding:0">
+                                    <a href="/Admin/Products/Edit/@item.Product_id" class="btn btn-inverse-info btn-sm">Edit</a>
+                                    <a href="/Admin/Products/Delete/@item.Product_id" class="btn btn-inverse-danger btn-sm">Delete</a>
+                                </td>
+                                @*@Html.ActionLink("Edit", "Edit", new { id = item.Product_id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.Product_id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Product_id })*@
+                            </tr>
+                        }
+                        @*}*@
+                    </tbody>
+                </table>
+
+            }
+            else
+            {
+                <p>There is no result, please <a href="/Admin/Products/Index">try again</a>.</p>
+            }
+        </div>
+    </div>
+</div>

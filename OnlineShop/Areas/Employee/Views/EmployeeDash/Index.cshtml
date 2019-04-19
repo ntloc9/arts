@@ -1,0 +1,84 @@
+﻿@model IEnumerable<OnlineShop.Models.Shipping>
+
+@{
+    ViewBag.Title = "Index";
+}
+<label class="badge badge-gradient-success">@TempData["Changepass"]</label>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Order Shipping List</h4>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Order ID
+                    </th>
+                    <th>
+                        Shipping Status
+                    </th>
+                    <th>
+                        Shipping Start Date
+                    </th>
+                    <th>
+                        Receiver
+                    </th>
+                    <th>
+                        Receiver Phone
+                    </th>
+                    <th>
+                        Payment Method
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>No Order to ship right now. Take order in <a href="/employee/orders">here</a></tr>
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Order_id
+                        </td>
+                        <td>
+                            <label class="badge badge-warning">@item.Shipping_status</label>
+                        </td>
+                        <td>
+                            @item.Shipping_start_date.ToShortDateString()
+                        </td>
+                        <td>
+                            @*@item.Order.User.User_name*@
+                        </td>
+                        <td>
+                            @*@item.Order.User.User_phone_number*@
+                        </td>
+                        <td>
+                            @*@item.Order.Payment_method*@
+                        </td>
+                        <td>
+                            @*It won't show price when payment method is not COD*@
+                            @if (@item.Order.Payment_method.Equals("COD"))
+                            {
+                                @item.Order.Total
+                            }
+                            else
+                            {
+                                <div>Purchased</div>
+                            }
+                        </td>
+                        <td>
+                            <a class="btn btn-gradient-info btn-sm" href="/Employee/Orders/Details/@item.Order_id">Detail</a>
+                            <a class="btn btn-gradient-success btn-sm" href="/Employee/Orders/ClientReceivedOrder?shippingid=@item.Shipping_id">Shipped</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

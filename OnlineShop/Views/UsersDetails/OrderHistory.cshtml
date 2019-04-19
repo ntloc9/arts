@@ -1,0 +1,66 @@
+﻿@model IEnumerable<OnlineShop.Models.Order>
+
+@{
+    ViewBag.Title = "Order History";
+}
+
+
+
+
+<div class="grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Order List</h4>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            Order ID
+                        </th>
+                        <th>
+                            Order Status
+                        </th>
+                        <th>
+                            Order Date
+                        </th>
+                        <th>
+                            Total
+                        </th>
+                        <th>
+                            Payment Method
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.Order_id
+                            </td>
+                            <td>
+
+                                <label class="badge badge-danger">@item.Order_status</label>
+
+
+
+                            </td>
+                            <td>
+                                @item.Order_date
+                            </td>
+                            <td>
+                                @item.Total
+                            </td>
+                            <td>
+                                @item.Payment_method
+                            </td>
+                            <td>
+                                @Html.ActionLink("Details", "OrderDetail", new { id = item.Order_id, @class = "btn btn-gradient-info btn-sm" }) |
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

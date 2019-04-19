@@ -1,0 +1,61 @@
+﻿@model IEnumerable<OnlineShop.Models.Product>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Products";
+    var session = (OnlineShop.Models.Login.UserSession)Session[OnlineShop.Models.UserLogin.Sessioncont.USER_SESSION];
+}
+
+<div class="container inner">    <!--/.row -->
+
+    <div class="blog shop boxed grid-view text-center">
+        <div class="tiles">
+            <div class="isotope row">
+                @foreach (var item in ViewBag.OnePageOfProducts)
+                {
+                    <!-- column -->
+                    <div class="item grid-sizer col-xs-12 col-sm-6 col-md-4">
+                        <div class="box border">
+                            <figure><a href="/shop/@item.Product_id"><img class="primary" src="/Images/Uploads/Products/@item.Product_id/@item.Image" alt="" /></a></figure>
+                            <div class="post-content text-center">
+                                <h3 class="post-title"><a href="/shop/@item.Product_id">@item.Product_id</a></h3>
+                                <div class="meta price"><span class="amount">$@item.Price</span></div>
+                                <!-- /.meta -->
+                                <a href="@Url.Action("Buy", "Cart", new { id = item.Product_id })">Buy Now</a>
+                                @if (session != null)
+                                {
+                                    <a href="/Wishlists/add?product_id=@item.Product_id&user_id=@session.id">Add to wishlist</a>
+
+                                }
+
+                            </div>
+                            <!-- /.post-content -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                }
+            </div>
+            <!--/.row -->
+
+        </div>
+        @Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("/Products", new { page, cateID = ViewBag.SelectedCat }))
+
+        <!--/.tiles -->
+    </div>
+    <!--/.portfolio -->
+
+ 
+    <!-- /.pagination -->
+
+</div>
+<script type="text/javascript">
+    function AddToCart(id) {
+        $.post("/ShoppingCart/AddToCart", { "id": id },
+            function (data) {
+                if (data.Code == '0') {
+                    alert('Add to cart success!');
+                }
+            });
+        return false;
+    }
+</script>

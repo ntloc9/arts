@@ -1,0 +1,45 @@
+﻿@model IEnumerable<OnlineShop.Models.AdminEmployee>
+
+@{
+    ViewBag.Title = "Employee";
+}
+
+<div class="grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Employee</h4>
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+            <table class="table table-hover">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Phone Number
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AE_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AE_phone)
+                        </td>
+                        <td>
+                            <a href="/Admin/Employees/Edit/@item.AE_id" class="btn btn-gradient-primary btn-sm">Edit</a>
+                            <a href="/Admin/Employees/Delete/@item.AE_id" class="btn btn-gradient-danger btn-sm">Delete</a>
+                            
+                            @*@Html.ActionLink("Edit", "Edit", new { id = item.AE_id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.AE_id })*@
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

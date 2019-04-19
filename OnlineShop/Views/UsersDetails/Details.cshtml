@@ -1,0 +1,57 @@
+﻿@model OnlineShop.Models.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="card-body">
+    <h4 class="card-title"> Detail Users</h4>
+    <p class="card-description"></p>
+    <div class="col-md-6">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Username:</label>
+            <label class="col-sm-6 col-form-label"> @Model.User_name</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label"> Password:</label>
+            <label class="col-sm-6 col-form-label">  @Model.User_password</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Email:</label>
+            <label class="col-sm-6 col-form-label"> @Model.User_email</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Address:</label>
+            <label class="col-sm-6 col-form-label">  @Model.User_address</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label"> Phone Number:</label>
+            <label class="col-sm-6 col-form-label">  @Model.User_phone_number</label>
+        </div>
+    </div>
+
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.User_id }) |
+        @Html.ActionLink("OrderHistory", "OrderHistory", new { id = Model.User_id, @class = "btn btn-gradient-info btn-sm" })
+
+    </p>
+
+</div>
+
+
+   
+
+
+
+
+

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<OnlineShop.Models.Category>
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container inner pt-50">
+    <h2 class="section-title">Hello! We’re ARTS~~shop, an artwork stationery shop</h2>
+    <p class="lead">Based in Ho Chi Minh city, specializing in selling <span class="typer" id="typer" data-delay="100" data-delim=":" data-words="gift article:dolls: hand bags:wallets"></span><span class="cursor" data-owner="typer"></span></p>
+    <div class="space35"></div>
+    <h2 class="section-title section-title-upper">it's all about art</h2>
+    <div class="space10"></div>
+    <div class="portfolio grid-view">
+        <div class="clearfix"></div>
+        <div class="tiles tiles-m">
+            <div class="isotope row grid-1">
+                @foreach (var item in Model)
+                {
+                    <div class="item grid-sizer col-sm-6 col-md-4 web">
+                        <figure class="overlay overlay1">
+                            <a href="/shop/cate/@item.Cate_id"></a><img src="/Images/Uploads/Categories/@item.Cate_id/@item.Cate_image" alt="" />
+                            <figcaption>
+                                <h5 class="from-top">Explore</h5>
+                            </figcaption>
+                        </figure>
+                        <div class="post-content">
+                            <h3 class="post-title">@item.Cate_name</h3>
+                            @*<div class="meta"><span class="category"></span></div>*@
+                            <!-- /.meta -->
+                        </div>
+                        <!-- /.post-content -->
+                    </div>
+                    <!-- /column -->
+                }
+            </div>
+            <!--/.row -->
+        </div>
+        <!--/.tiles -->
+    </div>
+    <!--/.portfolio -->
+    <!-- /.row -->
+</div>
+

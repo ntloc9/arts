@@ -1,0 +1,78 @@
+﻿@model IEnumerable<OnlineShop.Models.Order>
+@using OnlineShop.Areas.Extension;
+
+@{
+    ViewBag.Title = "Order List";
+    var session = (OnlineShop.Areas.Extension.AccountLoginSession)Session[OnlineShop.Areas.Admin.Extension.SessionCont.SessionEmployee];
+}
+
+<div class="grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Order List</h4>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            Order ID
+                        </th>
+                        <th>
+                            Order Status
+                        </th>
+                        <th>
+                            Order Date
+                        </th>
+                        <th>
+                            Total
+                        </th>
+                        <th>
+                            Payment Method
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.Order_id
+                            </td>
+                            <td>
+                                @if (@item.Order_status.Equals(DeliveryCons.Processing))
+                                {
+                                    <label class="badge badge-info">@item.Order_status</label>
+                                }
+                                else if (@item.Order_status.Equals(DeliveryCons.Shipping))
+                                {
+                                    <label class="badge badge-warning">@item.Order_status</label>
+                                }
+                                else if (@item.Order_status.Equals(DeliveryCons.Received))
+                                {
+                                    <label class="badge badge-success">@item.Order_status</label>
+                                }
+                                else
+                                {
+                                    <label class="badge badge-danger">@item.Order_status</label>
+                                }
+
+
+                            </td>
+                            <td>
+                                @item.Order_date
+                            </td>
+                            <td>
+                                @item.Total
+                            </td>
+                            <td>
+                                @item.Payment_method
+                            </td>
+                            <td>
+                                <a class="btn btn-gradient-info btn-sm" href="/Employee/Orders/Details/@item.Order_id">Detail</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

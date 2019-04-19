@@ -1,0 +1,148 @@
+﻿@model IEnumerable<OnlineShop.Models.Product>
+
+    @{
+    ViewBag.Title = "ProductByBrand";
+    }
+
+    <h2>ProductByBrand</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand.Brand_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.Cate_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Detail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product_code)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand.Brand_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Cate_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Detail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_code)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Product_id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Product_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Product_id })
+            </td>
+        </tr>
+        }
+
+    </table>
+
+    <div class="container inner">
+        <div class="row flex-middle mb-30">
+            <div class="col-sm-6 col-md-3">
+                <p class="mb-0">Showing 1–16 of 25 results</p>
+            </div>
+            <!--/column -->
+            <div class="space10 visible-xs"></div>
+            <div class="col-sm-6 col-md-3 col-md-offset-6 text-right">
+                <label class="custom-select">
+                    <select class="mb-0">
+                        <option value="menu_order" selected="selected">Default sorting</option>
+                        <option value="popularity">Sort by popularity</option>
+                        <option value="rating">Sort by average rating</option>
+                        <option value="date">Sort by date</option>
+                        <option value="price">Sort by price: low to high</option>
+                        <option value="price-desc">Sort by price: high to low</option>
+                    </select>
+                    <span><!-- fake select handler --></span>
+                </label>
+            </div>
+            <!--/column -->
+        </div>
+        <!--/.row -->
+
+        <div class="blog shop boxed grid-view text-center">
+            <div class="tiles">
+                <div class="isotope row">
+                    @foreach (var item in Model)
+                    {
+                    <!-- column -->
+                    <div class="item grid-sizer col-xs-12 col-sm-6 col-md-4">
+                        <div class="box border">
+                            <figure><a href="/shop/@item.Product_id"><img src="/Images/Uploads/Categories/@item.Product_id/@item.Product_name" alt="" /></a></figure>
+                            <div class="post-content text-center">
+                                <h3 class="post-title"><a href="/shop/@item.Product_id">@item.Product_id</a></h3>
+                                <div class="meta price"><span class="amount">$@item.Price</span></div>
+                                <!-- /.meta -->
+                                <a href="@Url.Action("Buy", "Cart", new { id = item.Product_id })">Buy Now</a>
+                            </div>
+                            <!-- /.post-content -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    }
+                </div>
+                <!--/.row -->
+
+            </div>
+            <!--/.tiles -->
+        </div>
+        <!--/.portfolio -->
+
+        <div class="space30"></div>
+        <div class="pagination border text-center">
+            <ul>
+                <li><a href="#"><i class="et-chevron-small-left"></i></a></li>
+                <li class="active"><a href="#"><span>1</span></a></li>
+                <li><a href="#"><span>2</span></a></li>
+                <li><a href="#"><span>3</span></a></li>
+                <li><a href="#"><i class="et-chevron-small-right"></i></a></li>
+            </ul>
+        </div>
+        <!-- /.pagination -->
+
+    </div>

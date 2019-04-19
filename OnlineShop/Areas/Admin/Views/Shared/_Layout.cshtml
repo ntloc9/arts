@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Admin</title>
+    @*@Styles.Render("~/Content/css")
+
+        @Scripts.Render("~/bundles/modernizr")*@
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="~/Content/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/Content/admin/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="~/Content/admin/style.css">
+    <link rel="stylesheet" href="~/Content/PagedList.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="~/Images/favicon.png" />
+
+</head>
+<body>
+    <div class="container-scroller">
+        <!-- START NAVBAR -->
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href="/Admin/Dash"><img style="height:135px; margin-top:10px" src="~/Images/arts.svg" /></a>
+                <a class="navbar-brand brand-logo-mini" href="/Admin/Dash"><img src="~/Images/arts.svg" /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                            <div class="nav-profile-text">
+                                <p class="mb-1 text-black">Hello admin</p>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                            <a class="dropdown-item" href="/Admin/Dash/ChangePassword">
+                                <i class="mdi mdi-cached mr-2 text-success"></i>
+                                Change Password
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/Admin/Login/Logout">
+                                <i class="mdi mdi-logout mr-2 text-primary"></i>
+                                Signout
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item d-none d-lg-block full-screen-link">
+                        <a class="nav-link">
+                            <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-logout d-none d-lg-block">
+                        <a class="nav-link" href="/Admin/Login/Logout">
+                            <i class="mdi mdi-power"></i>
+                        </a>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- END NAVBAR -->
+        <!-- START SIDEBAR -->
+        <div class="container-fluid page-body-wrapper">
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <span class="menu-title">Dashboard</span>
+                            <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/Categories/Index">
+                            <span class="menu-title">Categories</span>
+                            <i class="menu-arrow"></i>
+                            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/Brands/Index">
+                            <span class="menu-title">Brands</span>
+                            <i class="mdi mdi-contacts menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/Products/Index">
+                            <span class="menu-title">Products</span>
+                            <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/Users">
+                            <span class="menu-title">Users</span>
+                            <i class="mdi mdi-account-multiple menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/Orders">
+                            <span class="menu-title">Orders</span>
+                            <i class="mdi mdi-table-large menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/Employees/Index">
+                            <span class="menu-title">Employees</span>
+                            <i class="mdi mdi-account-card-details menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+                            <span class="menu-title">Report &Aacute; Feedback</span>
+                            <i class="menu-arrow"></i>
+                            <i class="mdi mdi-medical-bag menu-icon"></i>
+                        </a>
+                        <div class="collapse" id="general-pages">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
+                                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
+                                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
+                                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
+                                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    @*<li class="nav-item sidebar-actions">
+                            <span class="nav-link">
+                                <div class="border-bottom">
+                                    <h6 class="font-weight-normal mb-3">Projects</h6>
+                                </div>
+                                <button class="btn btn-block btn-lg btn-gradient-primary mt-4">+ Add a project</button>
+                                <div class="mt-4">
+                                    <div class="border-bottom">
+                                        <p class="text-secondary">Categories</p>
+                                    </div>
+                                    <ul class="gradient-bullet-list mt-4">
+                                        <li>Free</li>
+                                        <li>Pro</li>
+                                    </ul>
+                                </div>
+                            </span>
+                        </li>*@
+                </ul>
+            </nav>
+            <!-- END SIDEBAR -->
+            @*<div class="container body-content">*@
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    @RenderBody()
+                    <footer class="footer">
+                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                            <span class="text-center text-sm-left d-block d-sm-inline-block">Thanks Bootstrap Dash for giving us using this purple admin template in our Eproject</span>
+                            <span class="text-muted float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap Dash</a>. All rights reserved.<i class="mdi mdi-heart text-danger"></i></span>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>*@
+
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @*@Scripts.Render("~/bundles/admin")
+        @RenderSection("scripts", required: false)*@
+
+    <!-- plugins:js -->
+    <script src="~/Scripts/admin/vendor.bundle.base.js"></script>
+    <script src="~/Scripts/admin/vendor.bundle.addons.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="~/Scripts/admin/off-canvas.js"></script>
+    <script src="~/Scripts/admin/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    @*<script src="js/dashboard.js"></script>*@
+    <!-- End custom js for this page-->
+
+</body>
+</html>

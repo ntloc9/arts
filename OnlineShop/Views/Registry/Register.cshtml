@@ -1,0 +1,81 @@
+﻿@model OnlineShop.Models.User
+
+@{
+    ViewBag.Title = "Register";
+
+}
+<label class="badge badge-gradient-danger">
+    @TempData["regSuccess"]
+</label>
+
+<h2>Register</h2>
+
+@using (Html.BeginForm())
+
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="container inner">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Hello New User! - Please! Register Now!</h3>
+                <form>
+                    <div class="form-group">
+                        <label>Username:</label>
+                        @Html.TextBoxFor(model => model.User_name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.User_name, "", new { @class = "text-danger" })
+
+                    </div>
+                    <!-- /.form-group -->
+                    <div class="form-group">
+                        <label>Email:</label>
+                        @Html.TextBoxFor(model => model.User_email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.User_email, "", new { @class = "text-danger" })
+
+                    </div>
+                    <!-- /.form-group -->
+                    <div class="form-group">
+                        <label>Password: </label>
+
+                        @Html.PasswordFor(model => model.User_password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.User_password, "", new { @class = "text-danger" })
+
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label>Address </label>
+                        @Html.TextBoxFor(model => model.User_address, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.User_address, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+                        <label>Phone: </label>
+                        @Html.TextBoxFor(model => model.User_phone_number, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.User_phone_number, "", new { @class = "text-danger" })
+
+                    </div>
+                    <!-- /.form-group -->
+                    <div class="form-group">
+                        <div class="checkbox mt-0 mb-0">
+                            <label>
+                                <input type="checkbox">
+                                <span><!-- fake checkbox --></span> <span class="wrapped-label">I aggree with terms of use</span>
+                            </label>
+                        </div>
+                        <!-- /.checkbox -->
+                    </div>
+                    <!-- /.form-group -->
+                    <button type="submit" class="btn btn-rounded">Sign Up</button>
+                </form>
+                <!-- /form -->
+            </div>
+            <!--/column -->
+            <!--/column -->
+        </div>
+        <!--/.row -->
+    </div>
+    <!-- /.container -->
+}
+
